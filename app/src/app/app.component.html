@@ -1,0 +1,62 @@
+<div>
+    <section>
+        <article>
+            <label>Buscar</label>
+            <input type="text" [formControl]="name">
+            <button mat-raised-button (click)="afegirProducte = !afegirProducte">Nuevo plato</button>
+
+            <div class="platos">
+                <div class=newProduct *ngIf=afegirProducte>
+                    <div class="element">
+                        <p>Nombre</p>
+                        <input type="text" [(ngModel)]="nom">
+                    </div>
+
+                    <div class="element">
+                        <p>Calorias</p>
+                        <input type="text" [(ngModel)]="calories">
+                    </div>
+
+                    <div class="element">
+                        <p>Imagen (link)</p>
+                        <input type="text" [(ngModel)]="imatge">
+                    </div>
+
+                    <button mat-raised-button (click)="newProduct(nom, calories, imatge)">Añadir</button>
+                </div>
+
+                <div *ngFor="let a of foods">
+                    <div *ngIf="a.name | pipe: name.value" class="box">
+                        <div class="info-producte">
+                            <img src={{a.image}}>
+                            <div class="text">
+                                <p class="name">{{a.name}}</p>
+                                <p class="calories">{{a.calories}} calories</p>
+                            </div>
+                        </div>
+                        <form class="afegir">
+                            <button mat-raised-button (click)="producteLlista(a)">+</button>
+                            <input type="text" [(ngModel)]="a.quantity" name="valorEntrada">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="menu">
+            <h1>Menú diario</h1>
+
+            <div class="menu-diari">
+                <ul *ngFor="let a of diaryMenu">
+                    <li *ngIf="a.name">
+                        <p>{{a.name}}</p>
+                        <p>x{{a.quantitat}}</p>
+                        <p>Calories: {{a.calories}}</p>
+                        <img src="assets/cross.png" (click)="deleteProduct(a.name)">
+                    </li>
+                </ul>
+            </div>
+
+        </article>
+    </section>
+</div>
